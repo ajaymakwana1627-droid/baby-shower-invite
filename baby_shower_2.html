@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Baby Shower Invitation</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Tangerine:wght@700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f8e1a1, #e8d3ff);
+            padding: 20px;
+        }
+
+        .card {
+            max-width: 750px;
+            width: 100%;
+            background: #fffdf6;
+            border-radius: 25px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            position: relative;
+            border: 8px solid #e6c97a;
+        }
+
+        /* Decorative Indian border */
+        .card::before {
+            content: "";
+            position: absolute;
+            inset: 10px;
+            border: 2px dashed #e6c97a;
+            border-radius: 18px;
+        }
+
+        .title {
+            font-family: 'Tangerine', cursive;
+            font-size: 60px;
+            color: #b76e79;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        .photo-section {
+            margin: 20px 0;
+        }
+
+        .photo-section img {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid #e6c97a;
+        }
+
+        .parents {
+            font-size: 26px;
+            font-weight: 600;
+            margin-top: 10px;
+            color: #444;
+        }
+
+        .details {
+            margin-top: 25px;
+            background: #fff4dc;
+            padding: 20px;
+            border-radius: 15px;
+            font-size: 17px;
+            line-height: 1.8;
+        }
+
+        .details span {
+            font-weight: 600;
+            color: #b76e79;
+        }
+
+        /* Countdown */
+        .countdown {
+            margin-top: 25px;
+        }
+
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .box {
+            background: #b76e79;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            width: 80px;
+        }
+
+        .box h2 {
+            font-size: 28px;
+        }
+
+        .box p {
+            font-size: 14px;
+        }
+
+        .baby-illustration {
+            font-size: 60px;
+            margin-top: 20px;
+        }
+
+        .footer {
+            margin-top: 25px;
+            color: #666;
+        }
+
+        .rsvp {
+            margin-top: 8px;
+            font-weight: 600;
+            color: #b76e79;
+        }
+
+        @media(max-width:600px) {
+            .title {
+                font-size: 45px
+            }
+
+            .photo-section img {
+                width: 140px;
+                height: 140px
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+
+        <div class="title">Godh Bharai</div>
+        <div class="subtitle">Celebrating the arrival of our little blessing</div>
+
+        <!-- Parents Photo Section -->
+        <div class="photo-section">
+            <img src="https://via.placeholder.com/180" alt="Parents Photo">
+            <div class="parents">Mandeep & Smita</div>
+        </div>
+
+        <!-- Event Details -->
+        <div class="details">
+            <p><span>📅 Date:</span> <span id="eventDateText"> 22 February 2026</span></p>
+            <p><span>⏰ Time:</span> 11:00 AM Onwards</p>
+            <p><span>📍 Venue:</span> Omakar Heights</p>
+        </div>
+
+        <!-- Countdown Timer -->
+        <div class="countdown">
+            <h3>Countdown to Celebration 🎉</h3>
+            <div class="timer">
+                <div class="box">
+                    <h2 id="days">00</h2>
+                    <p>Days</p>
+                </div>
+                <div class="box">
+                    <h2 id="hours">00</h2>
+                    <p>Hours</p>
+                </div>
+                <div class="box">
+                    <h2 id="minutes">00</h2>
+                    <p>Minutes</p>
+                </div>
+                <div class="box">
+                    <h2 id="seconds">00</h2>
+                    <p>Seconds</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="baby-illustration">👶🪔🌸</div>
+
+        <div class="footer">
+            Your presence and blessings will make our celebration more special.
+            <div class="rsvp">[Contact Details]</div>
+        </div>
+
+    </div>
+
+    <script>
+
+        const eventDate = new Date("Feb 22, 2026 17:00:00").getTime();
+
+        setInterval(() => {
+
+            const now = new Date().getTime();
+            const diff = eventDate - now;
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days;
+            document.getElementById("hours").innerText = hours;
+            document.getElementById("minutes").innerText = minutes;
+            document.getElementById("seconds").innerText = seconds;
+
+        }, 1000);
+
+    </script>
+
+</body>
+
+</html>
