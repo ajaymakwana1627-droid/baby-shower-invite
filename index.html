@@ -38,6 +38,7 @@
             box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
             position: relative;
             border: 6px solid #e6c97a;
+            overflow: hidden;
         }
 
         .card::before {
@@ -46,9 +47,10 @@
             inset: 8px;
             border: 2px dashed #e6c97a;
             border-radius: 18px;
+            pointer-events: none;
         }
 
-        /* Banner Image */
+        /* Banner */
         .banner img {
             width: 100%;
             border-radius: 15px;
@@ -70,7 +72,7 @@
             margin-bottom: 20px;
         }
 
-        /* Parents Section */
+        /* Parents */
         .photo-section {
             margin: 20px 0;
         }
@@ -98,11 +100,37 @@
             border-radius: 15px;
             font-size: 17px;
             line-height: 1.8;
+            transition: .3s;
+            cursor: pointer;
+        }
+
+        .details:hover {
+            transform: scale(1.02);
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.15);
         }
 
         .details span {
             font-weight: 600;
             color: #b76e79;
+        }
+
+        /* Buttons */
+        .map-btn,
+        .calendar-btn {
+            display: inline-block;
+            margin-top: 12px;
+            padding: 10px 18px;
+            background: #b76e79;
+            color: white;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 14px;
+            transition: .3s;
+        }
+
+        .map-btn:hover,
+        .calendar-btn:hover {
+            background: #9f5863;
         }
 
         /* Countdown */
@@ -124,6 +152,11 @@
             padding: 15px;
             border-radius: 10px;
             width: 75px;
+            transition: .3s;
+        }
+
+        .box:hover {
+            transform: translateY(-5px);
         }
 
         .box h2 {
@@ -150,8 +183,7 @@
             color: #b76e79;
         }
 
-        /* ================= MOBILE VIEW ================= */
-
+        /* Mobile */
         @media(max-width:600px) {
 
             .card {
@@ -180,10 +212,6 @@
                 padding: 15px;
             }
 
-            .timer {
-                gap: 10px;
-            }
-
             .box {
                 width: 65px;
                 padding: 12px;
@@ -209,32 +237,38 @@
 
     <div class="card">
 
-        <!-- Banner Image -->
-        <div class="banner">
-            <img src="https://via.placeholder.com/800x300" alt="Invitation Banner">
-        </div>
-
         <div class="title">Godh Bharai</div>
         <div class="subtitle">Celebrating the arrival of our little blessing</div>
 
-        <!-- Parents Photo -->
         <div class="photo-section">
-            <img src="https://via.placeholder.com/180" alt="Parents Photo">
+            <img src="https://raw.githubusercontent.com/ajaymakwana1627-droid/baby-shower-invite/refs/heads/main/images/WhatsApp%20Image%202026-02-10%20at%203.53.20%20PM.jpeg" alt="Parents">
             <div class="parents">Mandeep & Smita</div>
         </div>
 
-        <!-- Details -->
-        <div class="details">
-            <p><span>📅 Date:</span> 22 February 2026</p>
-            <p><span>⏰ Time:</span> 11:00 AM Onwards</p>
-            <p><span>📍 Venue:</span> Omakar Heights</p>
-        </div>
+        <!-- CLICKABLE DETAILS -->
+        <a href="https://maps.app.goo.gl/9B9ALPJXRiGoH5cS6" target="_blank"
+            style="text-decoration:none; color:inherit;">
+            <div class="details">
 
-        <!-- Countdown -->
+                <p><span>📅 Date:</span> 22 February 2026</p>
+                <p><span>⏰ Time:</span> 11:00 AM Onwards</p>
+                <p><span>📍 Venue:</span> C 504 Omkar Heights near Rajput Bhavan, Maneja</p>
+
+                <div>
+                    <a class="map-btn" href="https://maps.app.goo.gl/9B9ALPJXRiGoH5cS6" target="_blank">
+                        View Location 📍
+                    </a>
+                </div>
+
+            </div>
+        </a>
+
+        <!-- COUNTDOWN -->
         <div class="countdown">
             <h3>Countdown to Celebration 🎉</h3>
 
             <div class="timer">
+
                 <div class="box">
                     <h2 id="days">00</h2>
                     <p>Days</p>
@@ -254,6 +288,7 @@
                     <h2 id="seconds">00</h2>
                     <p>Seconds</p>
                 </div>
+
             </div>
         </div>
 
@@ -261,7 +296,12 @@
 
         <div class="footer">
             Your presence and blessings will make our celebration more special.
-            <div class="rsvp">Contact: 9876543210</div>
+            <div class="rsvp">
+                📞 Contact Person: <strong>Mandeep</strong><br>
+                📱 Mobile: <a href="tel:+918469041703" style="color:#b76e79; text-decoration:none;">
+                    +91 84690 41703
+                </a>
+            </div>
         </div>
 
     </div>
@@ -270,10 +310,19 @@
 
         const eventDate = new Date("Feb 22, 2026 11:00:00").getTime();
 
-        setInterval(() => {
+        const timer = setInterval(() => {
 
             const now = new Date().getTime();
             const diff = eventDate - now;
+
+            if (diff <= 0) {
+                clearInterval(timer);
+                document.getElementById("days").innerText = "00";
+                document.getElementById("hours").innerText = "00";
+                document.getElementById("minutes").innerText = "00";
+                document.getElementById("seconds").innerText = "00";
+                return;
+            }
 
             document.getElementById("days").innerText = Math.floor(diff / (1000 * 60 * 60 * 24));
             document.getElementById("hours").innerText = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
